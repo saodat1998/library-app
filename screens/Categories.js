@@ -13,9 +13,9 @@ import {
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
+export default class Categories extends React.Component {
+  constructor() {
+    super();
     //Array of Item to add
     this.items = [
       { 'img': require("../assets/images/money.jpg"), 'title': 'What money is and whats wrong with it What money is and whats wrong with it' },
@@ -25,6 +25,12 @@ export default class HomeScreen extends React.Component {
       { 'img': require("../assets/images/bridge.jpeg"), 'title': 'What money is and whats wrong with it' },
       { 'img': require("../assets/images/making.jpg"), 'title': 'What money is and whats wrong with it' },
     ];
+    this.cats = [
+        {'name': 'Finance', img: '', slug: 'finance'},
+        {'name': 'Economics', img: '', slug: 'economics'},
+        {'name': 'Finance', img: '', slug: 'finance'},
+        {'name': 'Economics', img: '', slug: 'economics'},
+    ]
   }
   static navigationOptions = ({ navigation, navigationOptions }) => {
     return {
@@ -39,7 +45,7 @@ export default class HomeScreen extends React.Component {
       },
       headerTitle: (
         <View style={styles.appMainTitle}>
-          <Text style={styles.center}>It is Main Page</Text>
+          <Text style={styles.center}>It is Categories page</Text>
         </View>
       ),
       headerLeft: (
@@ -56,23 +62,28 @@ export default class HomeScreen extends React.Component {
     }
   }
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
-          <View style={styles.content}>
-            {this.items.map((i, key) => (
+          <View style={styles.row}>
+            {this.cats.map((i, key) => (
+              <View key={key} style={styles.col}>
+              <TouchableOpacity
+            activeOpacity={0.8} style={styles.svgStyle} onPress={() => {
+                navigation.navigate("Home")
+            }}>
               <View key={key} style={styles.imgCont}>
                 <View style={styles.welcomeContainer}>
-                  <Images url={i.img} />
+                <Ionicons name="md-arrow-round-forward" size={64} color="green" />
                 </View>
-                <View style={styles.getStartedContainer}>
-                  <Text style={styles.textTitle}>{i.title}</Text>
-                  <View style={styles.textIcon}>
-                    <Ionicons name="ios-heart-empty" size={32} color="green" />
-                  </View>
+                <View style={styles.cl}>
+                  <Text style={styles.textTitle}>{i.name}</Text>
                 </View>
+              </View>
+              </TouchableOpacity>
               </View>
             ))}
           </View>
@@ -111,7 +122,7 @@ function Images(url) {
   return (
     <Image
       source={url.url}
-      style={styles.welcomeImage}
+      style={styles.image}
     />
   );
 }
@@ -134,45 +145,42 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
     textAlign: 'left',
-    width: '80%',
+    textAlign: 'center'
   },
-  textIcon: {
-    alignItems: 'flex-end',
-    width: '20%',
-  },
+  
   contentContainer: {
     paddingTop: 30,
   },
-  content: {
-    paddingLeft: 20,
-    paddingRight: 20,
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    position: 'relative',
+    width: '100%',
+    paddingHorizontal: 20,
+    flexWrap: 'wrap',
+  },
+  col:{
+    width: '50%',
   },
   welcomeContainer: {
     alignItems: 'center',
     marginBottom: 20,
   },
-  welcomeImage: {
+  image: {
     width: "100%",
     height: 200,
     resizeMode: 'cover',
     alignSelf: 'center',
   },
-  getStartedContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    position: 'relative',
-    width: '100%',
-    paddingHorizontal: 10
-  },
+  
   imgCont: {
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-    marginBottom: 20,
+    margin: 10,
   }
 
 });

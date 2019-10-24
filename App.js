@@ -4,8 +4,10 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import AppNavigator from './navigation/AppNavigator';
+
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -60,3 +62,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+

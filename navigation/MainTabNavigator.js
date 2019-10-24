@@ -4,6 +4,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
+import Categories from '../screens/Categories';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
@@ -35,6 +36,20 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
+const CategoriesStack = createStackNavigator(
+  {
+    Categories: Categories,
+  },
+  config
+);
+
+CategoriesStack.navigationOptions = {
+  tabBarLabel: 'Categories',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+  ),
+};
+
 const LinksStack = createStackNavigator(
   {
     Links: LinksScreen,
@@ -43,9 +58,9 @@ const LinksStack = createStackNavigator(
 );
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Favourites',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-heart' : 'md-heart'} />
   ),
 };
 
@@ -69,6 +84,7 @@ SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
+  CategoriesStack,
   LinksStack,
   SettingsStack,
 });
